@@ -1,0 +1,78 @@
+// SpainL_SalesArrayV1.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Lukas Spain
+// 11/04/2025
+// Sales Array Version 1
+
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+
+using namespace std;
+
+const int ARRAY_SIZE = 7;
+
+int main()
+{
+    //declare variables
+    double num[ARRAY_SIZE];
+    double high;
+    double low;
+    double total;
+    double average;
+    double sum = 0;
+
+    //declare file stream variables
+    ifstream fin;
+
+    //open file
+    fin.open("daily_sales.txt");
+
+    //error check for file
+    if (!fin)
+    {
+        cout << "Input file not detected. Check again." << endl << endl;
+        return 1;
+    }
+
+    //program title/description
+    cout << "This program will read in sales info from a file, \n";
+    cout << "calculate weekly sales stats, and print to the console. \n\n";
+
+    //console output
+    cout << setprecision(2) << fixed << showpoint;
+    cout << "Weekly Budget Calculator" << endl;
+    cout << "By: Lukas Spain" << endl;
+    cout << "********************" << endl;
+    cout << "Custom Print Shop" << endl;
+    cout << "********************" << endl;
+    cout << "Weekly Sales Report" << endl;
+    cout << endl << endl;
+
+    //read in 
+    for (int i = 0; i < ARRAY_SIZE; i++)
+    {
+        fin >> num[i];
+        cout << setw(4) << "Day " << setw(2) << i + 1 << setw(1) << ":" << setw(2)
+            << "$" << setw(8) << num[i] << endl;
+        sum = sum + num[i];
+    }
+    average = sum / ARRAY_SIZE;
+    cout << endl << endl;
+
+    cout << "Total sales for this week are: $" << sum << endl;
+    cout << "Average sales for this week are: $" << average << endl;
+
+    high = num[0];
+    low = num[6];
+    for (int i = 0; i < ARRAY_SIZE; i++)
+    {
+        if (num[i] > high)
+            high = num[i];
+        if (num[i] < low)
+            low = num[i];
+    }
+    cout << "Highest daily sales this week are: $" << high << endl;
+    cout << "Lowest daily sales this week are: $" << low << endl;
+
+    return 0;
+}
